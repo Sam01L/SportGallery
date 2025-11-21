@@ -1,8 +1,12 @@
 package com.example.anothercookieclicker;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
@@ -12,7 +16,8 @@ public class PhotoViewerController {
     public Button buttonNext;
     public Button buttonBack;
     public ImageView sportImg;
-    public Label sportTitle;
+    public Slider sliderImg;
+    public MenuButton options;
 
     ArrayList<Image> imageGallery = new ArrayList<>();
     int currentImage;
@@ -33,6 +38,8 @@ public class PhotoViewerController {
 
             currentImage = 0;
             sportImg.setImage(imageGallery.get(currentImage));
+            sliderImg.setMax(4);
+            sliderImg.setMin(0);
         }
     }
 
@@ -44,12 +51,21 @@ public class PhotoViewerController {
             currentImage = 0;
         }
         // get the next image
+        sliderImg.setValue(currentImage);
         sportImg.setImage(imageGallery.get(currentImage));
     }
 
     public void changeBack() {
         currentImage = currentImage - 1;
         currentImage = (currentImage + imageGallery.size()) % imageGallery.size();
+        sliderImg.setValue(currentImage);
         sportImg.setImage(imageGallery.get(currentImage));
+
+
+    }
+    public void sliderChange(){
+        int sliderNum = (int)sliderImg.getValue();
+        sportImg.setImage(imageGallery.get(sliderNum));
+        currentImage = sliderNum;
     }
 }
